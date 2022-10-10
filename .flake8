@@ -1,0 +1,9 @@
+# Config file for flake8
+[flake8]
+ignore = D203, E722, W503
+exclude =
+    .git,
+    __pycache__,
+    *_pb2.py
+max-complexity = 10
+max-line-length = 120
