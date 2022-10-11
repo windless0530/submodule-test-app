@@ -1,6 +1,6 @@
 # Config file for flake8
 [flake8]
-ignore = D203, E722, W503
+ignore = D203,E722,W503
 exclude =
     .git,
     __pycache__,
