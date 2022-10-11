@@ -33,15 +33,15 @@ def string_display_len(string):
 def size_info(size):
     """ 图片大小转换成显示的文字 """
     if size < 1024:
-        return "%.2fB" % size
+        return f"{size:.2f}B"
     size /= 1024
     if size < 1024:
-        return "%.2fKB" % size
+        return f"{size:.2f}KB"
     size /= 1024
     if size < 1024:
-        return "%.2fMB" % size
+        return f"{size:.2f}MB"
     size /= 1024
-    return "%.2fGB" % size
+    return f"{size:.2f}GB"
 
 
 def image_name(pic_file_name):
@@ -94,7 +94,11 @@ class DirectoryCleanupInfo:
                  size_len):
         """ 信息 """
         gap_len = dir_len - string_display_len(self.dir_name)
-        return f"目录名：{self.dir_name[len(ROOT_DIR)+len(os.sep):] + ' ' * gap_len} | 总图片数：{str(self.total_file_cnt).rjust(image_len)} | 保留图片数：{str(self.reserve_cnt()).rjust(reserve_image_len)} | 删除图片数：{str(self.delete_cnt()).rjust(delete_image_len)} | 节约空间：{self.delete_size_info().rjust(size_len)}"
+        return f"目录名：{self.dir_name[len(ROOT_DIR)+len(os.sep):] + ' ' * gap_len} " \
+            f"| 总图片数：{str(self.total_file_cnt).rjust(image_len)} " \
+                f"| 保留图片数：{str(self.reserve_cnt()).rjust(reserve_image_len)} " \
+                    f"| 删除图片数：{str(self.delete_cnt()).rjust(delete_image_len)} " \
+                        f"| 节约空间：{self.delete_size_info().rjust(size_len)}"
 
 
 class CleanupInfo:
