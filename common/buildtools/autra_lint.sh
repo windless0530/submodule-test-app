@@ -59,17 +59,20 @@ function run_sh_lint() {
 function run_py_lint() {
   pushd "${AUTRA_ROOT_DIR}" >/dev/null
   echo "Start to run python lint..."
+  echo $(pwd)
   if [ -z "$(command -v flake8)" ]; then
     echo "\e[31mCommand flake8 not found. You can install it manually via:"
     echo "  '[sudo -H] python3 -m pip install flake8'\e[0m"
     exit 1
   fi
+  echo $(pwd)
 
   if [ -z "$(command -v pylint)" ]; then
     echo "\e[31mCommand pylint not found. You can install it manually via:"
     echo "  '[sudo -H] python3 -m pip install pylint'\e[0m"
     exit 1
   fi
+  echo $(pwd)
 
   local base_commit_sha=$(git merge-base HEAD origin/master)
   local modified_file_list=$(git diff ${base_commit_sha} --name-only --diff-filter=ACM \
@@ -141,7 +144,6 @@ function parse_cmdline_args() {
 }
 
 function main() {
-  echo "START: $(pwd)"
   parse_cmdline_args "$@"
   if [[ "${PYTHON_LINT_FLAG}" -eq 1 ]]; then
     run_py_lint
