@@ -39,7 +39,7 @@
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 # disable=F0401,W0141,W0611,W0110,W0703,W0142
-disable=missing-final-newline,broad-except
+disable=C,R,I,missing-final-newline,broad-except
 
 [REPORTS]
 
@@ -165,7 +165,7 @@ disable=missing-final-newline,broad-except
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=120 # 稍微放开一下
+max-line-length=120
 
 # Regexp for a line that is allowed to be longer than the limit.
 # ignore-long-lines=^\s*(# )?<?https?://\S+>?$
