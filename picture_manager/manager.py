@@ -46,8 +46,8 @@ def size_info(size):
 
 def image_name(pic_file_name):
     """ 由于 NEF 在 LightRoom 修图后保存为 JPG 格式，且有 HDR 等可能的后缀因此
-      因此，在判断一个 NEF 是否在 LightRoom / LightRoomMac 文件夹里有对应的版本，需要做一个转换
-  """
+        因此，在判断一个 NEF 是否在 LightRoom / LightRoomMac 文件夹里有对应的版本，需要做一个转换
+    """
     return pic_file_name[:
                          8]  # 可以同时覆盖 "IMG_XXXX.YYY" 和 "DSC_XXXX[-HDR].ZZZ" 这两类图片文件名
 
@@ -59,8 +59,8 @@ def dir_date(d):
 
 class DirectoryCleanupInfo:
     """
-  一个目录经扫描后的清理信息
-  """
+    一个目录经扫描后的清理信息
+    """
 
     MIN_RESERVE_CNT = 5
     MIN_DELETE_CNT = 20
@@ -86,23 +86,21 @@ class DirectoryCleanupInfo:
 
     def valid(self):
         """ 是否合法（真的需要删除）"""
-        return self.reserve_cnt() >= DirectoryCleanupInfo.MIN_RESERVE_CNT \
-          and self.delete_cnt() >= DirectoryCleanupInfo.MIN_DELETE_CNT
+        return self.reserve_cnt(
+        ) >= DirectoryCleanupInfo.MIN_RESERVE_CNT and self.delete_cnt(
+        ) >= DirectoryCleanupInfo.MIN_DELETE_CNT
 
     def get_info(self, dir_len, image_len, reserve_image_len, delete_image_len,
                  size_len):
         """ 信息 """
         gap_len = dir_len - string_display_len(self.dir_name)
-        return "目录名：%s | 总图片数：%s | 保留图片数：%s | 删除图片数：%s | 节约空间：%s" % \
-          (self.dir_name[len(ROOT_DIR)+len(os.sep):] + " " * gap_len, str(self.total_file_cnt).rjust(image_len), \
-            str(self.reserve_cnt()).rjust(reserve_image_len), str(self.delete_cnt()).rjust(delete_image_len), \
-              self.delete_size_info().rjust(size_len))
+        return f"目录名：{self.dir_name[len(ROOT_DIR)+len(os.sep):] + ' ' * gap_len} | 总图片数：{str(self.total_file_cnt).rjust(image_len)} | 保留图片数：{str(self.reserve_cnt()).rjust(reserve_image_len)} | 删除图片数：{str(self.delete_cnt()).rjust(delete_image_len)} | 节约空间：{self.delete_size_info().rjust(size_len)}"
 
 
 class CleanupInfo:
     """
-  所有需要清理的信息
-  """
+    所有需要清理的信息
+    """
 
     PIC_EXT = set(["jpg", "nef"])
     DIR_EXT = set(["lightroom", "lightroommac"])
@@ -132,9 +130,9 @@ class CleanupInfo:
 
     def _gen_directory_cleanup_info_ps(self, dir_name, sub_dir):
         """
-    清理一个目录 - PS 子目录
-    清理逻辑：如果在目录下有 selected 目录，则删除所有没有被 selected 选择的照片（认为是经挑选后的废片），只保留 selected 目录中的
-    """
+        清理一个目录 - PS 子目录
+        清理逻辑：如果在目录下有 selected 目录，则删除所有没有被 selected 选择的照片（认为是经挑选后的废片），只保留 selected 目录中的
+        """
         all_pics = []
         delete_files = []
         for item in os.listdir(dir_name):
@@ -151,11 +149,11 @@ class CleanupInfo:
 
     def _gen_directory_cleanup_info_lr(self, dir_name):
         """
-    清理一个目录 - LR 子目录
-    清理逻辑：如果在目录下有 LightRoom 修图过的目录，则删除所有没有被修图的照片（认为是经挑选后的废片），只保留之前在移动硬盘中的备份
-    注意：德奥、新西兰行的照片有一些是之前用 JPEG 修图，现在只存了 NEF 之后没有完全修的，这些需要跳过并保留
-    所以这个函数返回的信息一开始应该用于展示，经人肉确定后再删除
-    """
+        清理一个目录 - LR 子目录
+        清理逻辑：如果在目录下有 LightRoom 修图过的目录，则删除所有没有被修图的照片（认为是经挑选后的废片），只保留之前在移动硬盘中的备份
+        注意：德奥、新西兰行的照片有一些是之前用 JPEG 修图，现在只存了 NEF 之后没有完全修的，这些需要跳过并保留
+        所以这个函数返回的信息一开始应该用于展示，经人肉确定后再删除
+        """
         all_pics = []
         selected_pics = set()
         for item in os.listdir(dir_name):
@@ -196,8 +194,8 @@ class CleanupInfo:
 
     def clear(self):
         """
-    进行真正的清理
-    """
+        进行真正的清理
+        """
         print("开始清理")
         n = len(self.infos)
         for i, dir_info in enumerate(self.infos):
