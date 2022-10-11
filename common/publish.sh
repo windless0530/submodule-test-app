@@ -6,10 +6,7 @@
 
 set -e
 
-echo "Working Dir: "$(pwd)
 TOP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/." && pwd -P)"
-echo "Top Dir: "$TOP_DIR
-echo "Working Dir: "$(pwd)
 GITHUB_API_DIR=${TOP_DIR}/scripts/github_api
 READABILITY_DIR=${TOP_DIR}/scripts/readability
 BUILDTOOLS_DIR=${TOP_DIR}/buildtools
@@ -86,7 +83,7 @@ function code_format() {
 }
 
 function format_check() {
-    echo "Format check started."
+    echo "Format check started $(pwd)."
     bash $BUILDTOOLS_DIR/autra_lint.sh
     echo "Format check finished."
 }
