@@ -83,7 +83,7 @@ function code_format() {
 }
 
 function format_check() {
-    echo "Format check started $(pwd)."
+    echo "Format check started."
     bash $BUILDTOOLS_DIR/autra_lint.sh
     echo "Format check finished."
 }

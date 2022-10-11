@@ -141,6 +141,7 @@ function parse_cmdline_args() {
 }
 
 function main() {
+  echo "START: $(pwd)"
   parse_cmdline_args "$@"
   if [[ "${PYTHON_LINT_FLAG}" -eq 1 ]]; then
     run_py_lint
