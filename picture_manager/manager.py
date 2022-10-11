@@ -169,9 +169,9 @@ class CleanupInfo:
                     full_path):
                 for sub_item in os.listdir(full_path):
                     if sub_item[-3:].lower(
-                    ) in CleanupInfo.PIC_EXT and os.path.isfile(full_path +
-                                                                os.sep +
-                                                                sub_item):
+                    ) in CleanupInfo.PIC_EXT and os.path.isfile(full_path
+                                                                + os.sep
+                                                                + sub_item):
                         selected_pics.add(image_name(sub_item))
         delete_files = [
             f for f in all_pics
@@ -193,8 +193,8 @@ class CleanupInfo:
             max_size_len = max(max_size_len, len(info.delete_size_info()))
         return "\n".join([info.get_info(max_dir_len, len(str(max_total_cnt)), \
           len(str(max_reserve_cnt)), len(str(max_delete_cnt)), max_size_len) for info in self.infos]) \
-            + "\n总节约空间：%s" % size_info(sum([info.delete_size for info in self.infos])) \
-              + ("\n跳过目录：\n%s" % "\n".join(self.skipped))
+            + f"\n总节约空间：{size_info(sum([info.delete_size for info in self.infos]))}\n跳过目录：\n" \
+            + "\n".join(self.skipped)
 
     def clear(self):
         """
