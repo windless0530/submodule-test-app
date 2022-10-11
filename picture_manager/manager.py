@@ -96,9 +96,9 @@ class DirectoryCleanupInfo:
         gap_len = dir_len - string_display_len(self.dir_name)
         return f"目录名：{self.dir_name[len(ROOT_DIR)+len(os.sep):] + ' ' * gap_len} " \
             f"| 总图片数：{str(self.total_file_cnt).rjust(image_len)} " \
-                f"| 保留图片数：{str(self.reserve_cnt()).rjust(reserve_image_len)} " \
-                    f"| 删除图片数：{str(self.delete_cnt()).rjust(delete_image_len)} " \
-                        f"| 节约空间：{self.delete_size_info().rjust(size_len)}"
+            f"| 保留图片数：{str(self.reserve_cnt()).rjust(reserve_image_len)} " \
+            f"| 删除图片数：{str(self.delete_cnt()).rjust(delete_image_len)} " \
+            f"| 节约空间：{self.delete_size_info().rjust(size_len)}"
 
 
 class CleanupInfo:
