@@ -74,6 +74,9 @@ function run_py_lint() {
   local base_commit_sha=$(git merge-base HEAD origin/master)
   local modified_file_list=$(git diff ${base_commit_sha} --name-only --diff-filter=ACM \
     | grep -v "^common/" | grep -E "\.py$")
+
+  echo $(pwd)
+  
   for modified_file in $modified_file_list
   do
     echo "Running flake8 on ${modified_file}"
