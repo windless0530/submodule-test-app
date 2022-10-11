@@ -191,7 +191,7 @@ class CleanupInfo:
             max_reserve_cnt = max(max_reserve_cnt, info.reserve_cnt())
             max_delete_cnt = max(max_delete_cnt, info.delete_cnt())
             max_size_len = max(max_size_len, len(info.delete_size_info()))
-        return "\n".join([info.get_info(max_dir_len, len(str(max_total_cnt)), \
+        return "\n".join([info.get_info(max_dir_len, len(str(max_total_cnt)),
           len(str(max_reserve_cnt)), len(str(max_delete_cnt)), max_size_len) for info in self.infos]) \
             + f"\n总节约空间：{size_info(sum([info.delete_size for info in self.infos]))}\n跳过目录：\n" \
             + "\n".join(self.skipped)
