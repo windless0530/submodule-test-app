@@ -57,6 +57,7 @@ function run_sh_lint() {
 }
 
 function run_py_lint() {
+  echo $(pwd)
   pushd "${AUTRA_ROOT_DIR}" >/dev/null
   echo "Start to run python lint..."
   echo $(pwd)
