@@ -52,9 +52,9 @@ def image_name(pic_file_name):
                          8]  # 可以同时覆盖 "IMG_XXXX.YYY" 和 "DSC_XXXX[-HDR].ZZZ" 这两类图片文件名
 
 
-def dir_date(d):
+def dir_date(dt):
     """ 从目录中提取日期 """
-    return d[:8]
+    return dt[:8]
 
 
 class DirectoryCleanupInfo:
