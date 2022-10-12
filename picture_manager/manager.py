@@ -48,8 +48,7 @@ def image_name(pic_file_name):
     """ 由于 NEF 在 LightRoom 修图后保存为 JPG 格式，且有 HDR 等可能的后缀因此
         因此，在判断一个 NEF 是否在 LightRoom / LightRoomMac 文件夹里有对应的版本，需要做一个转换
     """
-    return pic_file_name[:
-                         8]  # 可以同时覆盖 "IMG_XXXX.YYY" 和 "DSC_XXXX[-HDR].ZZZ" 这两类图片文件名
+    return pic_file_name[:8]  # 可以同时覆盖 "IMG_XXXX.YYY" 和 "DSC_XXXX[-HDR].ZZZ" 这两类图片文件名
 
 
 def dir_date(dir_name):
@@ -69,8 +68,7 @@ class DirectoryCleanupInfo:
         self.dir_name = dir_name
         self.total_file_cnt = total_file_cnt
         self.delete_files = delete_files
-        self.delete_size = sum(
-            [os.path.getsize(dir_name + os.sep + f) for f in delete_files])
+        self.delete_size = sum([os.path.getsize(dir_name + os.sep + f) for f in delete_files])
 
     def delete_cnt(self):
         """ 删除图片数 """
@@ -86,12 +84,10 @@ class DirectoryCleanupInfo:
 
     def valid(self):
         """ 是否合法（真的需要删除）"""
-        return self.reserve_cnt(
-        ) >= DirectoryCleanupInfo.MIN_RESERVE_CNT and self.delete_cnt(
+        return self.reserve_cnt() >= DirectoryCleanupInfo.MIN_RESERVE_CNT and self.delete_cnt(
         ) >= DirectoryCleanupInfo.MIN_DELETE_CNT
 
-    def get_info(self, dir_len, image_len, reserve_image_len, delete_image_len,
-                 size_len):
+    def get_info(self, dir_len, image_len, reserve_image_len, delete_image_len, size_len):
         """ 信息 """
         gap_len = dir_len - string_display_len(self.dir_name)
         return f"目录名：{self.dir_name[len(ROOT_DIR)+len(os.sep):] + ' ' * gap_len} " \
@@ -129,8 +125,7 @@ class CleanupInfo:
     def _gen_directory_cleanup_info(self, dir_name):
         sub_dir = dir_name + os.sep + CleanupInfo.PS_SUB_DIR
         return self._gen_directory_cleanup_info_ps(
-            dir_name, sub_dir) if os.path.isdir(
-                sub_dir) else self._gen_directory_cleanup_info_lr(dir_name)
+            dir_name, sub_dir) if os.path.isdir(sub_dir) else self._gen_directory_cleanup_info_lr(dir_name)
 
     def _gen_directory_cleanup_info_ps(self, dir_name, sub_dir):
         """
@@ -141,13 +136,11 @@ class CleanupInfo:
         delete_files = []
         for item in os.listdir(dir_name):
             full_path = dir_name + os.sep + item
-            if item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(
-                    full_path):
+            if item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(full_path):
                 all_pics.append(item)
                 delete_files.append(item)
         for sub_item in os.listdir(sub_dir):
-            if sub_item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(
-                    sub_dir + os.sep + sub_item):
+            if sub_item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(sub_dir + os.sep + sub_item):
                 all_pics.append(sub_item)
         return DirectoryCleanupInfo(dir_name, len(all_pics), delete_files)
 
@@ -162,21 +155,13 @@ class CleanupInfo:
         selected_pics = set()
         for item in os.listdir(dir_name):
             full_path = dir_name + os.sep + item
-            if item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(
-                    full_path):
+            if item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(full_path):
                 all_pics.append(item)
-            if item.lower() in CleanupInfo.DIR_EXT and os.path.isdir(
-                    full_path):
+            if item.lower() in CleanupInfo.DIR_EXT and os.path.isdir(full_path):
                 for sub_item in os.listdir(full_path):
-                    if sub_item[-3:].lower(
-                    ) in CleanupInfo.PIC_EXT and os.path.isfile(full_path
-                                                                + os.sep
-                                                                + sub_item):
+                    if sub_item[-3:].lower() in CleanupInfo.PIC_EXT and os.path.isfile(full_path + os.sep + sub_item):
                         selected_pics.add(image_name(sub_item))
-        delete_files = [
-            f for f in all_pics
-            if len(selected_pics) > 0 and image_name(f) not in selected_pics
-        ]
+        delete_files = [f for f in all_pics if len(selected_pics) > 0 and image_name(f) not in selected_pics]
         return DirectoryCleanupInfo(dir_name, len(all_pics), delete_files)
 
     def __str__(self):
@@ -192,8 +177,7 @@ class CleanupInfo:
             max_delete_cnt = max(max_delete_cnt, info.delete_cnt())
             max_size_len = max(max_size_len, len(info.delete_size_info()))
         result = "\n".join([
-            info.get_info(max_dir_len, len(str(max_total_cnt)),
-                          len(str(max_reserve_cnt)), len(str(max_delete_cnt)),
+            info.get_info(max_dir_len, len(str(max_total_cnt)), len(str(max_reserve_cnt)), len(str(max_delete_cnt)),
                           max_size_len) for info in self.infos
         ])
         result += f"\n总节约空间：{size_info(sum([info.delete_size for info in self.infos]))}\n跳过目录：\n"
@@ -207,9 +191,7 @@ class CleanupInfo:
         print("开始清理")
         n = len(self.infos)
         for i, dir_info in enumerate(self.infos):
-            print(
-                f"[{i+1:03d}/{n:03d}] 清理目录 [{len(dir_info.delete_files):03d} files] -> {dir_info.dir_name}"
-            )
+            print(f"[{i+1:03d}/{n:03d}] 清理目录 [{len(dir_info.delete_files):03d} files] -> {dir_info.dir_name}")
             for item in dir_info.delete_files:
                 try:
                     os.remove(dir_info.dir_name + os.sep + item)
@@ -225,9 +207,7 @@ def _valid_date(date):
 def main():
     """ main program """
     if len(sys.argv) <= 2:
-        print(
-            f"用法：\npython3 {os.path.basename(sys.argv[0])} <start_date> <end_date>"
-        )
+        print(f"用法：\npython3 {os.path.basename(sys.argv[0])} <start_date> <end_date>")
         sys.exit(-1)
     start = sys.argv[1]
     end = sys.argv[2]
