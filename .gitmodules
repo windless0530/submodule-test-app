@@ -1,3 +1,0 @@
-[submodule "common"]
-	path = common
-	url = git@github.com:windless0530/submodule-test-common.git
